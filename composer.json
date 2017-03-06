@@ -6,6 +6,9 @@
             "email": "maal@ciklum.com"
         }
     ],
+    "autoload": {
+        "psr-4": { "Matvieiev\\LoginBundle": "" }
+    },
     "require": {
         "bshaffer/oauth2-server-bundle": "^0.4.0",
         "guzzlehttp/guzzle": "~6.0"
