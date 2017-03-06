@@ -1,0 +1,13 @@
+{
+    "name": "matvieiev/login-bundle",
+    "authors": [
+        {
+            "name": "Alexandr Matvyeyev",
+            "email": "maal@ciklum.com"
+        }
+    ],
+    "require": {
+        "bshaffer/oauth2-server-bundle": "^0.4.0",
+        "guzzlehttp/guzzle": "~6.0"
+    }
+}

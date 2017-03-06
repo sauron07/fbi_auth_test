@@ -1,0 +1,6 @@
+matvieiev_login_homepage:
+    path:     /login
+    defaults: { _controller: MatvieievLoginBundle:Login:login }
+
+logout:
+    path: /logout

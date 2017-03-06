@@ -1,0 +1,26 @@
+parameters:
+    firewalls.main.logout.target: /
+    app.oauth_address: http://127.0.0.1:8000/
+
+services:
+    security.access_denied_handler:
+        class: Matvieiev\LoginBundle\Service\AccessDeniedHandler
+        arguments:
+            - '@twig'
+
+    user_service:
+        class: Matvieiev\LoginBundle\Service\UserService
+        arguments:
+            - '@doctrine.orm.entity_manager'
+
+    oauth_authenticator:
+        class: Matvieiev\LoginBundle\Security\OAuth2Authenticator
+        arguments:
+            - '@security.password_encoder'
+            - '@oauth_server'
+            - '@user_service'
+
+    oauth_server:
+        class: Matvieiev\LoginBundle\Service\Token\OAuth2Provider
+        arguments:
+            - '%app.oauth_address%'

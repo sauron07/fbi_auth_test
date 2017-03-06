@@ -1,0 +1,43 @@
+security:
+    encoders:
+        Matvieiev\LoginBundle\Entity\User:
+            algorithm: md5
+            encode_as_base64:   true
+            iterations:         5000
+
+        OAuth2\ServerBundle\Entity\User:
+            algorithm:          sha512
+            encode_as_base64:   true
+            iterations:         5000
+
+    providers:
+        db_user_provider:
+            entity:
+                class: MatvieievLoginBundle:User
+                property: username
+        oauth2:
+            id: oauth2.user_provider
+
+    firewalls:
+        main:
+            anonymous: ~
+            provider: db_user_provider
+            logout:
+                path: /logout
+                target: "%firewalls.main.logout.target%"
+            access_denied_handler: security.access_denied_handler
+            pattern: ^/
+            simple_form:
+                authenticator: oauth_authenticator
+                login_path: matvieiev_login_homepage
+                check_path: matvieiev_login_homepage
+
+    role_hierarchy:
+        ROLE_MANAGER: ROLE_WORKER
+        ROLE_ADMIN: [ROLE_MANAGER, ROLE_WORKER]
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/verify, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_WORKER }
